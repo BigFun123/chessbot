@@ -93,7 +93,7 @@ const StockFish = (props) => {
         if (randomMoveCount > 19) randomMoveCount = 0;
         console.log(moves);
 
-        gameContext.setMoveClue(moves[randomMoveCount] ? "R" : "B");
+        gameContext.setMoveClue(moves[randomMoveCount] ? "💭" : "💡");
 
         if (moves[randomMoveCount]) {
             console.log("making random move", randomMoveCount);
