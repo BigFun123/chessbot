@@ -35,7 +35,7 @@ const Avatar = (props) => {
             <img src={getName() + ".jpg"} width="64" alt="avatar" />
             <div className="avatarinfo">
                 {getName()}
-                <div className="skill">{getSkill()} {getMoveClue()}</div>
+                <div className="skill">{getMoveClue()} {getSkill()}</div>
             </div>
         </div>
     )

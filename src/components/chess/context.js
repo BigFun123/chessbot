@@ -27,7 +27,7 @@ const ChessContextProvider = (props) => {
     const [position, setPosition] = useState('start');
     const [gameState, setGameState] = useState("menu");
     const [backStory, setBackStory] = useState("Jenny is a beginner chess player. She is learning the game and is not very good at it yet. She is a good sport and enjoys playing with friends.");
-    const [moveClue, setMoveClue] = useState("B");
+    const [moveClue, setMoveClue] = useState("~");
 
     function newGame(orientation) {
         setOrientation(orientation);
