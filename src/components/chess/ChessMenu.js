@@ -2,7 +2,7 @@ import { useEffect, setState, useState, useMemo, useReducer, useContext } from "
 import { ChessContextProvider, GameContext, useChessContext } from "./context";
 import { Chess } from 'chess.js';
 import './Chess.css';
-import players from  './players.json';
+import players from './players.json';
 import RealVsBot from "./RealVsBot";
 import StockFish from "./StockFish";
 import Avatar from "./Avatar";
@@ -13,7 +13,7 @@ console.log(players);
 
 const ChessMenu = () => {
     const chessContext = useChessContext();
-    const {backStory} = useChessContext();
+    const { backStory } = useChessContext();
 
     useEffect(() => {
         console.log("Game State: ", chessContext.gameState);
@@ -21,7 +21,7 @@ const ChessMenu = () => {
 
     function newGame(orientation) {
         chessContext.restart();
-        chessContext.setOrientation(orientation);        
+        chessContext.setOrientation(orientation);
         chessContext.setGameState("game");
     }
 
@@ -33,35 +33,23 @@ const ChessMenu = () => {
         //chessContext.restart();
         //chessContext.setOrientation(chessContext.orientation==="white"?"black":"white");        
         //chessContext.setGameState("game");
-        newGame(chessContext.orientation==="white"?"black":"white");
+        newGame(chessContext.orientation === "white" ? "black" : "white");
     }
 
     return (
         <div className="chess-container">
-
+            {chessContext.gameState === "menu" && <Avatar />}
+            {chessContext.gameState === "menu" && <ChessCard />}
             {chessContext.gameState === "menu" &&
                 <div className="mainScreen">
                     <div className="chessmenu">
-                        <div className="gameavatar">
-                            <Avatar />
-                            <ChessCard/>
-
-                        </div>
                         {players.map((player) => {
                             return <Avatar avatar={player.name} skill={player.skill} engine={player.engine} backstory={player.backstory} />
                         })}
-                        {/* <Avatar avatar="Jenny" skill={1} engine={"bot"} />
-                        <Avatar avatar="Jake" skill={2} engine={"stock"} />
-                        <Avatar avatar="Ibrahim" skill={3} engine={"stock"} />
-                        <Avatar avatar="Thembi" skill={4} engine={"stock"} />
-                        <Avatar avatar="Almaria" skill={5} engine={"stock"} />
-                        <Avatar avatar="Kang Min" skill={8} engine={"stock"} />
-                        <Avatar avatar="Ivan" skill={13} engine={"stock"} />
-                        <Avatar avatar="Wu Tang" skill={20} engine={"stock"} />                                                 */}
                     </div>
                     <div className="chessButtons">
-                    <ChessButton label="Start White" state="game" onClick={() => newGame("white")}> </ChessButton>
-                    <ChessButton label="Start Black" state="game" onClick={() => newGame("black")}> </ChessButton>
+                        <ChessButton label="Start White" state="game" onClick={() => newGame("white")}> </ChessButton>
+                        <ChessButton label="Start Black" state="game" onClick={() => newGame("black")}> </ChessButton>
                     </div>
                 </div>
             }
@@ -72,17 +60,12 @@ const ChessMenu = () => {
                     <ChessButton label="Rematch" state="menu" onClick={() => restart()}>Rematch</ChessButton>
                 </div>
             }
+
+            {chessContext.gameState === "game" && <div className="gameavatar"><Avatar /></div>}
             {chessContext.gameState == "game" && chessContext.engine === "bot" &&
-                <div>
-                    <RealVsBot>
-                    </RealVsBot>
-                </div>}
+                <RealVsBot></RealVsBot>}
             {chessContext.gameState === "game" && chessContext.engine === "stock" &&
-                <div>                    
-                    <StockFish>
-                    </StockFish>
-                </div>
-            }
+                <StockFish></StockFish>}
         </div>
     )
 }
