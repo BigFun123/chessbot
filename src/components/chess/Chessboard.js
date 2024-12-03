@@ -80,7 +80,7 @@ const CChessboard = (props) => {
                         width: squareWidth + 15,
                         height: squareWidth + 20,
                         opacity: isDragging ? 0.95 : 1,
-                        translate: isDragging ? "0px -30px" : "0px -30px",
+                        translate: isDragging ? "0px -28px" : "0px -28px",
                     }}
                     src="bk.png"
                     alt="bK"
@@ -310,12 +310,14 @@ const CChessboard = (props) => {
         }));
     }
 
+    function getViewportWidth() {
+        let width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) - 50;
+        return Math.min(width, 700);
+    }
+
     return (
-        <div>
+        <div className="chessboard">            
             
-            <div className="gameavatar">
-                <Avatar  />
-            </div>
             <div className='hContainer'>
                 <Chessboard className='chessboard'
                     darkSquareStyle={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
@@ -334,7 +336,7 @@ const CChessboard = (props) => {
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover"
                     }}
-                    width={700}
+                    width={getViewportWidth()}
                     orientation={orientation}
                     squareStyles={state.squareStyles} />
                 <div className='vContainer chesscomments'>
