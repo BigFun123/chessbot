@@ -113,6 +113,10 @@
     padding-right: 10px;
 }
 
+.avataricon {
+    height: 60px;
+}
+
 .gameavatar {        
     font-variant: small-caps;
     position: absolute;
