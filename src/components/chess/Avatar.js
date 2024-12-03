@@ -32,7 +32,7 @@ const Avatar = (props) => {
                 gameContext.setBackStory(props.backstory);
             }
         }}>
-            <img src={getName() + ".jpg"} width="64" alt="avatar" />
+            <img className="avataricon" src={getName() + ".jpg"} alt="avatar" />
             <div className="avatarinfo">
                 {getName()}
                 <div className="skill">{getMoveClue()} {getSkill()}</div>

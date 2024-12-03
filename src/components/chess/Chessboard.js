@@ -41,10 +41,10 @@ const CChessboard = (props) => {
             wQ: ({ squareWidth, isDragging }) => (
                 <img
                     style={{
-                        width: squareWidth + 15,
-                        height: squareWidth + 30,
+                        width: squareWidth + 10,
+                        height: squareWidth + 20,
                         opacity: isDragging ? 0.95 : 1,
-                        translate: isDragging ? "0px -35px" : "0px -35px",
+                        translate: isDragging ? "0px -25px" : "0px -25px",
                     }}
                     src="wq.png"
                     alt="wQ"
@@ -65,10 +65,10 @@ const CChessboard = (props) => {
             wK: ({ squareWidth, isDragging }) => (
                 <img
                     style={{
-                        width: squareWidth + 20,
-                        height: squareWidth + 35,
+                        width: squareWidth + 10,
+                        height: squareWidth + 25,
                         opacity: isDragging ? 0.95 : 1,
-                        translate: "0px -40px",
+                        translate: "0px -30px",
                     }}
                     src="wk.png"
                     alt="wK"
@@ -175,7 +175,7 @@ const CChessboard = (props) => {
                     style={{
                         width: squareWidth + 10,
                         height: squareWidth + 20,
-                        opacity: isDragging ? 0.95 : 1,
+                        opacity: 1,
                         translate: isDragging ? "0px -45px" : "0px -25px",
                     }}
                     src="bb.png"
