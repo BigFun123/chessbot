@@ -214,7 +214,7 @@ const CChessboard = (props) => {
                     ...{
                         [c]: {
                             background: getHelpColor(),
-                            borderRadius: "20%"
+                            borderRadius: "0"
                         }
                     },
                     ...squareStyling({
@@ -311,8 +311,8 @@ const CChessboard = (props) => {
     }
 
     function getViewportWidth() {
-        let width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) - 50;
-        return Math.min(width, 700);
+        let width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) - 60;
+        return Math.min(width, 650);
     }
 
     return (
