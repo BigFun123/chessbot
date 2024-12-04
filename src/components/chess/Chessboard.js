@@ -318,7 +318,7 @@ const CChessboard = (props) => {
     return (
         <div className="chessboard">            
             
-            <div className='hContainer'>
+            <div className='vContainer'>
                 <Chessboard className='chessboard'
                     darkSquareStyle={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
                     lightSquareStyle={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
