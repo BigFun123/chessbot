@@ -194,6 +194,8 @@ const CChessboard = (props) => {
 
     function getHelpColor() {
         switch( +gameContext.skillLevel ) {
+            case 0:
+                return "radial-gradient(circle, #aaffcc 32%, transparent 55%)";
             case 1:
                 return "radial-gradient(circle, #aaffcc 32%, transparent 55%)";
             case 2:
@@ -260,18 +262,26 @@ const CChessboard = (props) => {
     };
 
     async function onDrop({ sourceSquare, targetSquare }) {
-        try {
-            let move = gameContext.game.move({
-                from: sourceSquare,
-                to: targetSquare,
-                promotion: "q"
-            });
-
-            if (move === null) return;
-        } catch (error) {
-            console.log(error);
-            return;
+        if (gameContext.skillLevel != 0) {
+            try {
+                let move = gameContext.game.move({
+                    from: sourceSquare,
+                    to: targetSquare,
+                    promotion: "q"
+                });
+    
+                if (move === null) return;
+            } catch (error) {
+                console.log(error);
+                    return;
+            }
+        } else {
+            // move the piece on the board without validation
+            const piece = gameContext.game.remove(sourceSquare);
+            gameContext.game.put({ type: piece.type, color: piece.color }, targetSquare);
         }
+
+        
 
         setBoardPosition(gameContext.game.fen());
         gameContext.playSound();
@@ -324,6 +334,7 @@ const CChessboard = (props) => {
                     lightSquareStyle={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
                     position={position}
                     showNotation={true}
+                    dropOffBoard = 'trash'
                     onMouseOverSquare={onMouseOverSquare}
                     onMouseOutSquare={onMouseOutSquare}
                     onDragOverSquare={onDragOverSquare}
@@ -343,7 +354,7 @@ const CChessboard = (props) => {
                     {gameContext.game.getComment()}
                     {gameContext.game.isGameOver() ? <h1>Game Over</h1> : null}
                     {gameContext.game.isAttacked() ? <h1>Attacked</h1> : null}
-                    {gameContext.game.isCheck() ? <h1>Check</h1> : null}
+                    {gameContext.game.isCheck() && !gameContext.game.isCheckmate() ? <h1>Check</h1> : null}
                     {gameContext.game.isCheckmate() ? <h1>Checkmate</h1> : null}
                     {gameContext.game.isDraw() ? <h1>Draw</h1> : null}
                     {gameContext.game.isInThreefoldRepetition ? <h1>Threefold</h1> : null}

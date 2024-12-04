@@ -8,6 +8,7 @@ import StockFish from "./StockFish";
 import Avatar from "./Avatar";
 import ChessButton from "./ChessButton";
 import ChessCard from "./ChessCard";
+import RealVsReal from "./RealVsReal";
 
 console.log(players);
 
@@ -38,7 +39,7 @@ const ChessMenu = () => {
 
     return (
         <div className="chess-container">
-            {chessContext.gameState === "menu" && <Avatar />}
+            {/* {chessContext.gameState === "menu" && <Avatar />} */}
             {chessContext.gameState === "menu" && <ChessCard />}
             {chessContext.gameState === "menu" &&
                 <div className="mainScreen">
@@ -66,6 +67,8 @@ const ChessMenu = () => {
                 <RealVsBot></RealVsBot>}
             {chessContext.gameState === "game" && chessContext.engine === "stock" &&
                 <StockFish></StockFish>}
+                {chessContext.gameState === "game" && chessContext.engine === "real" &&
+                <RealVsReal></RealVsReal>}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import { useEffect, setState, useState, useMemo, useReducer, useContext } from "react";
 import { GameContext, useChessContext } from "./context";
-import CChessboard from "./Chessboard";
+import CChessboard from "./ChessBoard";
 import registerServiceWorker from "./registerServiceWorker";
 
 

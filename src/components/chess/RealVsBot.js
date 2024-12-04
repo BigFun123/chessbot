@@ -1,6 +1,6 @@
 import { useEffect, setState, useState, useMemo, useReducer, useContext } from "react";
 import { GameContext } from "./context";
-import CChessboard from "./Chessboard";
+import CChessboard from "./ChessBoard";
 
 const RealVsBot = (props) => {
 
