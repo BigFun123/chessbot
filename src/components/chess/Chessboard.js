@@ -13,7 +13,7 @@ const CChessboard = (props) => {
     const [orientation, setOrientation] = useState(gameContext.orientation);
 
     useEffect(() => {
-        console.log("position");        
+        console.log("position");
         setOrientation(gameContext.orientation);
         setBoardPosition(gameContext.position);
     }, [gameContext]);
@@ -193,7 +193,7 @@ const CChessboard = (props) => {
     });
 
     function getHelpColor() {
-        switch( +gameContext.skillLevel ) {
+        switch (+gameContext.skillLevel) {
             case 0:
                 return "radial-gradient(circle, #aaffcc 32%, transparent 55%)";
             case 1:
@@ -241,7 +241,7 @@ const CChessboard = (props) => {
 
 
     function onMouseOverSquare(square) {
-        
+
         let moves = gameContext.game.moves({
             square: square,
             verbose: true
@@ -269,11 +269,11 @@ const CChessboard = (props) => {
                     to: targetSquare,
                     promotion: "q"
                 });
-    
+
                 if (move === null) return;
             } catch (error) {
                 console.log(error);
-                    return;
+                return;
             }
         } else {
             // move the piece on the board without validation
@@ -281,7 +281,7 @@ const CChessboard = (props) => {
             gameContext.game.put({ type: piece.type, color: piece.color }, targetSquare);
         }
 
-        
+
 
         setBoardPosition(gameContext.game.fen());
         gameContext.playSound();
@@ -314,7 +314,7 @@ const CChessboard = (props) => {
     }
 
     function onDragOverSquare(square) {
-        
+
         setState(({ history }) => ({
             squareStyles: squareStyling({ history, pieceSquare: square })
         }));
@@ -325,25 +325,39 @@ const CChessboard = (props) => {
         return Math.min(width, 650);
     }
 
+    function onClick(square) {
+        if (gameContext.deleteMode) {
+            const piece = gameContext.game.get(square);
+            if (piece.type === "k") {
+                gameContext.playSound("error");
+                return;
+            }
+            gameContext.game.remove(square);
+            setBoardPosition(gameContext.game.fen());
+        }
+    }
+
     return (
-        <div className="chessboard">            
-            
+        <div className="chessboard">
+
             <div className='vContainer'>
                 <Chessboard className='chessboard'
-                    darkSquareStyle={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
-                    lightSquareStyle={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
+                    darkSquareStyle={{ backgroundColor: "rgba(0, 0, 0, 0.0)" }}
+                    lightSquareStyle={{ backgroundColor: "rgba(0, 0, 0, 0.0)" }}
                     position={position}
                     showNotation={true}
-                    dropOffBoard = 'trash'
+                    dropOffBoard='trash'
                     onMouseOverSquare={onMouseOverSquare}
                     onMouseOutSquare={onMouseOutSquare}
                     onDragOverSquare={onDragOverSquare}
+                    //onPieceClick={onClick}
+                    onSquareClick={onClick}
                     onDrop={onDrop}
                     pieces={state.pieces}
                     boardStyle={{
                         borderRadius: "2px",
                         boxShadow: `0 15px 15px rgba(0, 0, 0, 0.75)`,
-                        backgroundImage: "url(board2.jpg)",
+                        backgroundImage: "url(board3.jpg)",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover"
                     }}

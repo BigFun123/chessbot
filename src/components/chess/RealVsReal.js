@@ -2,6 +2,7 @@ import { useEffect, setState, useState, useMemo, useReducer, useContext } from "
 import { GameContext } from "./context";
 import CChessboard from "./ChessBoard";
 import ChessButton from "./ChessButton";
+import ToggleButton from "./ToggleButton";
 
 let engine = new Worker("stockfish.js");
 let time = { wtime: 3000, btime: 3000, winc: 1500, binc: 1500 };
@@ -89,12 +90,22 @@ const RealVsReal = (props) => {
         gameContext.restart();
     }
 
+    function deleteMode() {
+        if (!gameContext.game.deleteMode) {
+            const fen = gameContext.game.fen();
+            console.log(fen);
+            gameContext.setPosition(gameContext.game.fen());
+        }
+        gameContext.setDeleteMode(!gameContext.deleteMode);
+    }
+
     return (
         <div className="vsbot">
             <CChessboard nextMove={() => { }} />
             <div class="hContainer2">
-                <ChessButton label="play w" onClick={playWhiteFromHere}>Play White</ChessButton>
-                <ChessButton label="play b" onClick={playBlackFromHere}>Play Black</ChessButton>
+                <ChessButton label="Play White" onClick={playWhiteFromHere}>Play White</ChessButton>
+                <ChessButton label="Play Black" onClick={playBlackFromHere}>Play Black</ChessButton>
+                <ToggleButton label="Delete" onClick={deleteMode}>X</ToggleButton>
             </div>
         </div>
     )

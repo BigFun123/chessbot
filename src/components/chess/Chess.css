@@ -53,7 +53,21 @@ h1 {
     font-size: var(--font-size);
     font-weight: bold;
     cursor: pointer;
+}
 
+.buttonselected {
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-color);
+    height: 60px;
+    width: 240px;    
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size);
+    font-weight: bold;
+    cursor: pointer;
+    background-color: var(--secondary-color);
 }
 
 .chess-container {
