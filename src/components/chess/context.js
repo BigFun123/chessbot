@@ -28,6 +28,7 @@ const ChessContextProvider = (props) => {
     const [gameState, setGameState] = useState("menu");
     const [backStory, setBackStory] = useState("Jenny is a beginner chess player. She is learning the game and is not very good at it yet. She is a good sport and enjoys playing with friends.");
     const [moveClue, setMoveClue] = useState("~");
+    const [deleteMode, setDeleteMode] = useState(false);
 
     function newGame(orientation) {
         setOrientation(orientation);
@@ -40,7 +41,7 @@ const ChessContextProvider = (props) => {
     }
 
     return (
-        <GameContext.Provider value={{ backStory, setBackStory, moveClue, setMoveClue, newGame, playSound, game, gameState, setGameState, restart: onRestart, position, setPosition, skillLevel, setSkillLevel, avatar, setAvatar, engine, setEngine, orientation, setOrientation, moveNumber, setMoveNumber }}>
+        <GameContext.Provider value={{ backStory, setBackStory, moveClue, setMoveClue, newGame, playSound, game, gameState, setGameState, restart: onRestart, position, setPosition, skillLevel, setSkillLevel, avatar, setAvatar, engine, setEngine, orientation, setOrientation, moveNumber, setMoveNumber, setDeleteMode, deleteMode }}>
             {props.children}
         </GameContext.Provider>
     )
