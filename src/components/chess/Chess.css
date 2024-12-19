@@ -1,9 +1,11 @@
 :root {
     
     --primary-color: rgb(0, 255, 149);
+    --primary-color-light: rgb(129, 255, 149);
     --secondary-color: rgb(0, 0, 0);
 
-    --font-size: 24px;
+    --font-size: 22px;
+    --font-size-mini: 19px;
     --font-weight: bold;
 
 }
@@ -45,14 +47,30 @@ h1 {
     flex-direction: column;
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    height: 60px;
-    width: 240px;    
+    height: 50px;
+    width: 200px;    
     align-content: center;
     align-items: center;
     justify-content: center;
     font-size: var(--font-size);
     font-weight: bold;
     cursor: pointer;
+}
+
+.buttonmini {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-color-light);
+    color: var(--secondary-color);
+    height: 40px;
+    width: 200px;    
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-mini);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top:1px;
 }
 
 .buttonselected {
@@ -163,6 +181,7 @@ h1 {
     align-items: center;
     justify-content: center;  
     gap: 5px;
+    margin-top: 1px;
 }
 
 
@@ -201,7 +220,11 @@ h1 {
     }
 
     .button {
-        width: 150px;
+        width: 120px;
+    }
+
+    .buttonselected {
+        width: 140px;
     }
 
     .card {

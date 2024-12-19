@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Chessboard from 'chessboardjsx';
 import { GameContext } from './context';
-import Avatar from './Avatar';
-import ChessButton from './ChessButton';
 
 //<Chessboard position="2R5/4bppk/1p1p3Q/5R1P/4P3/5P2/r4q1P/7K b - - 6 50"/>
 //<Chessboard position={{ e5: 'wK', e4: 'wP', e7: 'bK' }} />
@@ -163,7 +161,7 @@ const CChessboard = (props) => {
                     style={{
                         width: squareWidth + 5,
                         height: squareWidth + 15,
-                        opacity: isDragging ? 0.95 : 1,
+                        opacity: 1,
                         translate: isDragging ? "0px -20px" : "0px -20px",
                     }}
                     src="wb.png"

@@ -3,6 +3,8 @@ import { GameContext } from "./context";
 import CChessboard from "./ChessBoard";
 import ChessButton from "./ChessButton";
 import ToggleButton from "./ToggleButton";
+import openings from "./openings/openings.json";
+import ChessButtonMini from "./ChessButtonMini";
 
 let engine = new Worker("stockfish.js");
 let time = { wtime: 3000, btime: 3000, winc: 1500, binc: 1500 };
@@ -12,6 +14,8 @@ let maxSkill = 20;
 let moves = []; // an array of 20 moves, true is random, false is best move
 
 const RealVsReal = (props) => {
+
+    const [showOpening, setShowOpening] = useState(false);
 
     function uciCmd(cmd, which) {
         console.log("UCI: " + cmd);
@@ -70,7 +74,7 @@ const RealVsReal = (props) => {
         const fen = gameContext.game.fen();
         const parts = fen.split(" ");
         parts[1] = "w";
-        gameContext.game.load(parts.join(" "));        
+        gameContext.game.load(parts.join(" "));
         gameContext.setPosition(gameContext.game.fen());
         makeBotMove();
     }
@@ -81,7 +85,7 @@ const RealVsReal = (props) => {
         // force next move to black in fen string
         const parts = fen.split(" ");
         parts[1] = "b";
-        gameContext.game.load(parts.join(" "));        
+        gameContext.game.load(parts.join(" "));
         gameContext.setPosition(gameContext.game.fen());
         makeBotMove();
     }
@@ -99,15 +103,44 @@ const RealVsReal = (props) => {
         gameContext.setDeleteMode(!gameContext.deleteMode);
     }
 
+    const timer = ms => new Promise(res => setTimeout(res, ms))
+
+    async function setOpening(move) {
+        gameContext.setPosition(move.fen);
+
+        // play each position in the game array
+        for (let i = 0; i < move.game?.length; i++) {
+            const themove = move.game[i];
+            gameContext.setPosition(themove);
+            gameContext.game.load(themove);            
+            await timer(500);
+            gameContext.playSound();
+        };
+
+    }
+
     return (
         <div className="vsbot">
-            <CChessboard nextMove={() => { }} />
+            <div className="hContainer">
+                <CChessboard nextMove={() => { }} />                
+            </div>
             <div class="hContainer2">
                 <ChessButton label="Play White" onClick={playWhiteFromHere}>Play White</ChessButton>
                 <ChessButton label="Play Black" onClick={playBlackFromHere}>Play Black</ChessButton>
                 <ToggleButton label="Delete" onClick={deleteMode}>X</ToggleButton>
             </div>
-        </div>
+            <div class="hContainer2">
+                <ToggleButton label="Openings" onClick={() => setShowOpening(!showOpening)}>Openings</ToggleButton>
+                {showOpening &&
+                    <div className="vContainer">
+                        {openings.map((opening, index) => {
+                            return <ChessButtonMini label={opening.name} onClick={() => setOpening(opening)}>{opening.name}</ChessButtonMini>
+                        })}
+                    </div>
+                }
+            </div>
+
+        </div >
     )
 }
 
