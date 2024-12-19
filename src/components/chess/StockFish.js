@@ -2,6 +2,7 @@ import { useEffect, setState, useState, useMemo, useReducer, useContext } from "
 import { GameContext, useChessContext } from "./context";
 import CChessboard from "./ChessBoard";
 import registerServiceWorker from "./registerServiceWorker";
+import { BLACK } from "chess.js";
 
 
 /*
@@ -91,15 +92,28 @@ const StockFish = (props) => {
 
         randomMoveCount++;
         if (randomMoveCount > 19) randomMoveCount = 0;
-        console.log(moves);
+        //console.log(moves);
 
         gameContext.setMoveClue(moves[randomMoveCount] ? "💭" : "💡");
 
         if (moves[randomMoveCount]) {
             console.log("making random move", randomMoveCount);
             const possibleMoves = gameContext.game.moves()
-            const randomIndex = Math.floor(Math.random() * possibleMoves.length)
-            const move = possibleMoves[randomIndex];
+            let randomIndex = Math.floor(Math.random() * possibleMoves.length)
+            let move = possibleMoves[randomIndex];
+
+            // if the bot is skill > 5, then don't easily make a move that is attacked
+            if (gameContext.skillLevel >= 5) {
+                const square = move.slice(-2);
+                const attacked = gameContext.game.isAttacked(square, gameContext.game.turn() == "w" ? "b" : "w");                
+                if (attacked) { // make another choice
+                    console.log("attacked", square, "choosing better move for skill level", gameContext.skillLevel);
+                    randomIndex = Math.floor(Math.random() * possibleMoves.length)
+                    move = possibleMoves[randomIndex];
+                }
+            }
+
+
             gameContext.game.move(move);
             uciCmd("position fen " + gameContext.game.fen());
             return

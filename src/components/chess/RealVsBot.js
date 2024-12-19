@@ -19,7 +19,6 @@ const RealVsBot = (props) => {
         const randomIndex = Math.floor(Math.random() * possibleMoves.length)
         const move = possibleMoves[randomIndex];
 
-
         
         await new Promise((resolve) => setTimeout(() => {
             gameContext.setMoveNumber(gameContext.moveNumber + 1);
