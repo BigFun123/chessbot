@@ -3,10 +3,13 @@ import { Chess } from 'chess.js';
 import { createContext, useContext, useState } from 'react';
 import playSound from "./AudioPlayer";
 
+import jplayers from './players.json';
+
 
 const game = new Chess();
 game.uniqueId = new Date();
 console.log("new game", game);
+console.log(jplayers);
 
 const GameContext = createContext(
     /*{
@@ -29,6 +32,7 @@ const ChessContextProvider = (props) => {
     const [backStory, setBackStory] = useState("Jenny is a beginner chess player. She is learning the game and is not very good at it yet. She is a good sport and enjoys playing with friends.");
     const [moveClue, setMoveClue] = useState("~");
     const [deleteMode, setDeleteMode] = useState(false);
+    const [players, setPlayers] = useState(jplayers);
 
     function newGame(orientation) {
         setOrientation(orientation);
@@ -41,7 +45,7 @@ const ChessContextProvider = (props) => {
     }
 
     return (
-        <GameContext.Provider value={{ backStory, setBackStory, moveClue, setMoveClue, newGame, playSound, game, gameState, setGameState, restart: onRestart, position, setPosition, skillLevel, setSkillLevel, avatar, setAvatar, engine, setEngine, orientation, setOrientation, moveNumber, setMoveNumber, setDeleteMode, deleteMode }}>
+        <GameContext.Provider value={{ players, setPlayers, backStory, setBackStory, moveClue, setMoveClue, newGame, playSound, game, gameState, setGameState, restart: onRestart, position, setPosition, skillLevel, setSkillLevel, avatar, setAvatar, engine, setEngine, orientation, setOrientation, moveNumber, setMoveNumber, setDeleteMode, deleteMode }}>
             {props.children}
         </GameContext.Provider>
     )

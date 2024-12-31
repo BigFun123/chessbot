@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GameContext, useChessContext } from "./context";
 
 const Avatar = (props) => {
-    const gameContext = useChessContext();
+    const gameContext = useChessContext();    
 
     function getName() {
         return props.avatar ? props.avatar : gameContext.avatar;
@@ -23,15 +23,22 @@ const Avatar = (props) => {
         return props.engine || gameContext.engine;
     }
 
-    return (
-        <div className="avatar" onClick={() => {
-            if (props && (props.engine || props.skill || props.avatar)) {
-                gameContext.setEngine(props.engine);
-                gameContext.setSkillLevel(props.skill);
-                gameContext.setAvatar(props.avatar);
-                gameContext.setBackStory(props.backstory);
-            }
-        }}>
+    function getClass() {
+        return props.selected ? "avatar selected" : "avatar";
+    }
+
+    function handleClick() {        
+        if (props && (props.engine || props.skill || props.avatar)) {
+            gameContext.setEngine(props.engine);
+            gameContext.setSkillLevel(props.skill);
+            gameContext.setAvatar(props.avatar);
+            gameContext.setBackStory(props.backstory);
+        }
+        props.onClick(props);
+    }
+
+    return (        
+        <div className={getClass()} onClick={handleClick} key={getName()}>
             <img className="avataricon" src={getName() + ".jpg"} alt="avatar" />
             <div className="avatarinfo">
                 {getName()}
