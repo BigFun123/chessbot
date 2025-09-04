@@ -1,6 +1,6 @@
 class CPlayAI {
-    _apikey="ak-d03791bd9b334d55a87760b71dfaa922";
-    _userid="NrJ7QIMaHzOiYdG9da2YOWSjDtG2";
+    _apikey="";
+    _userid="";
 
     createChatbot() {
         const setupAgent = {
